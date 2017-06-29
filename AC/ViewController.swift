@@ -9,17 +9,30 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    
+    var display: DisplayController!
+    var keyboard: KeyboardController!
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "DisplayControllerSegue", let controller = segue.destination as? DisplayController {
+            
+            display = controller
+        } else if segue.identifier == "KeyboardControllerSegue", let controller = segue.destination as? KeyboardController {
+            
+            keyboard = controller
+            keyboard.onNumTap = { [weak self] num in
+                self?.onNumericTap(num: num)
+                
+            }
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
+    
+    func onNumericTap(num: Int) {
+        IntputAdapter.shared.input(value: num)
+        
+    
 }
 
+}

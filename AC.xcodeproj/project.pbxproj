@@ -13,6 +13,12 @@
 		B256902A1F03B54E003CB632 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B25690291F03B54E003CB632 /* Assets.xcassets */; };
 		B256902D1F03B54E003CB632 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B256902B1F03B54E003CB632 /* LaunchScreen.storyboard */; };
 		B25690381F03B54E003CB632 /* ACTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25690371F03B54E003CB632 /* ACTests.swift */; };
+		B25690431F03B71B003CB632 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25690421F03B71B003CB632 /* Protocols.swift */; };
+		B25690451F03B7B3003CB632 /* InputAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25690441F03B7B3003CB632 /* InputAdapter.swift */; };
+		B25690471F03B7F7003CB632 /* OutputAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25690461F03B7F7003CB632 /* OutputAdapter.swift */; };
+		B25690491F03B845003CB632 /* Brain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25690481F03B845003CB632 /* Brain.swift */; };
+		B256904D1F03B938003CB632 /* DisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B256904C1F03B938003CB632 /* DisplayController.swift */; };
+		B256904F1F03B9A0003CB632 /* KeyboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B256904E1F03B9A0003CB632 /* KeyboardController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +42,12 @@
 		B25690331F03B54E003CB632 /* ACTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ACTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B25690371F03B54E003CB632 /* ACTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ACTests.swift; sourceTree = "<group>"; };
 		B25690391F03B54E003CB632 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B25690421F03B71B003CB632 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		B25690441F03B7B3003CB632 /* InputAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputAdapter.swift; sourceTree = "<group>"; };
+		B25690461F03B7F7003CB632 /* OutputAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputAdapter.swift; sourceTree = "<group>"; };
+		B25690481F03B845003CB632 /* Brain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brain.swift; sourceTree = "<group>"; };
+		B256904C1F03B938003CB632 /* DisplayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayController.swift; sourceTree = "<group>"; };
+		B256904E1F03B9A0003CB632 /* KeyboardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +89,15 @@
 		B25690211F03B54E003CB632 /* AC */ = {
 			isa = PBXGroup;
 			children = (
-				B25690221F03B54E003CB632 /* AppDelegate.swift */,
+				B25690421F03B71B003CB632 /* Protocols.swift */,
+				B25690441F03B7B3003CB632 /* InputAdapter.swift */,
+				B25690481F03B845003CB632 /* Brain.swift */,
+				B25690461F03B7F7003CB632 /* OutputAdapter.swift */,
 				B25690241F03B54E003CB632 /* ViewController.swift */,
+				B256904C1F03B938003CB632 /* DisplayController.swift */,
+				B256904E1F03B9A0003CB632 /* KeyboardController.swift */,
 				B25690261F03B54E003CB632 /* Main.storyboard */,
+				B25690221F03B54E003CB632 /* AppDelegate.swift */,
 				B25690291F03B54E003CB632 /* Assets.xcassets */,
 				B256902B1F03B54E003CB632 /* LaunchScreen.storyboard */,
 				B256902E1F03B54E003CB632 /* Info.plist */,
@@ -199,8 +217,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B256904F1F03B9A0003CB632 /* KeyboardController.swift in Sources */,
+				B256904D1F03B938003CB632 /* DisplayController.swift in Sources */,
+				B25690431F03B71B003CB632 /* Protocols.swift in Sources */,
 				B25690251F03B54E003CB632 /* ViewController.swift in Sources */,
+				B25690451F03B7B3003CB632 /* InputAdapter.swift in Sources */,
 				B25690231F03B54E003CB632 /* AppDelegate.swift in Sources */,
+				B25690491F03B845003CB632 /* Brain.swift in Sources */,
+				B25690471F03B7F7003CB632 /* OutputAdapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
