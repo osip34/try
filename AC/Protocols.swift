@@ -18,7 +18,7 @@ enum Operation {
 
 protocol InputProtocol {
     func input(value: Int)
-    func input(operation: Operation)
+    func input(utility: String)
 }
 
 protocol OutputProtocol {
@@ -26,5 +26,5 @@ protocol OutputProtocol {
 }
 
 protocol Model {
-    func input(operation: Operation)
+    func input(expression: String)
 }

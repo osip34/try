@@ -24,15 +24,22 @@ class ViewController: UIViewController {
             keyboard = controller
             keyboard.onNumTap = { [weak self] num in
                 self?.onNumericTap(num: num)
-                
             }
+            keyboard.onUtilityTap = { [weak self] symbol in
+            self?.onUtilityTap(symbol: symbol)
+            }
+
         }
     }
     
     func onNumericTap(num: Int) {
         IntputAdapter.shared.input(value: num)
-        
-    
+       
 }
+    func onUtilityTap(symbol: String) {
+        IntputAdapter.shared.input(utility: symbol)
+    }
+
+
 
 }

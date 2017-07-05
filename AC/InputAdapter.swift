@@ -10,22 +10,72 @@ import Foundation
 
 class IntputAdapter: InputProtocol {
     static let shared = IntputAdapter()
-    
+    var startedNum = true
+    var buffer: String = "0"
     let brain = Brain.shared
-    var operation1: Operation?
     
     func input(value: Int) {
-        switch value {
-        case 30: brain.input(operation: .min)
-        case 60: brain.input(operation: .pls)
-        case 100: brain.input(operation: .equal)
-            
-        default: brain.input(number: value)
+        if buffer == "" || buffer == "0" || startedNum {
+            buffer = String(value)
+            startedNum = true
+        } else if buffer.characters.last == "." || buffer.characters.last! >= "0" && buffer.characters.last! <= "9" {
+            buffer = buffer + "\(value)"
+        } else {
+            buffer = buffer + " \(value)"
         }
-
+      brain.procces(buffer)
     }
     
-    func input(operation: Operation) {
-        brain.input(operation: operation)
-    }
+    func input(utility: String) {
+        
+        
+        if characterOperationBinary(str: utility) {
+            if characterOperationBinary(str: buffer) {
+        buffer.characters.removeLast()
+                buffer += utility
+            } else if buffer.characters.last! >= "0" && buffer.characters.last! <= "9" {
+                buffer += " " + utility
+            }
+        }
+        if utility == "(" {
+            if characterOperationBinary(str: buffer) {
+            buffer += " " + utility
+                brain.countOfLeftParentheses += 1
+            } else if buffer.characters.last! >= "0" && buffer.characters.last! <= "9" {
+            buffer += " × ("
+                brain.countOfLeftParentheses += 1
+            }
+        }
+            if utility == ")" {
+                if !characterOperationBinary(str: buffer) && brain.countOfLeftParentheses > brain.countOfRightParentheses {
+                buffer += " " + utility
+                }
+            }
+        startedNum = false
+        //presentHistory
+        brain.procces(buffer)
+        
+        }
+    
+    
+    func enterServiceKey(_ serviceKey: Int) {
+        if serviceKey == 100 {
+            brain.input(expression: buffer)
+            brain.equal()
+            buffer = "\(brain.result!)"
+            startedNum = true
+        } //else {
+            //buffer = ""
+           // brain.clear()
+        }
 }
+func characterOperationBinary (str: String) ->Bool {
+    switch str.characters.last! {
+    case "+": fallthrough
+    case "-": fallthrough
+    case "×": fallthrough
+    case "÷": return true
+    default: return false
+        
+    }
+    }

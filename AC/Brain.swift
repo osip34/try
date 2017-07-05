@@ -13,53 +13,122 @@ class Brain: Model {
     
     let output = OutputAdapter.shared
     
+    var tmp = ""
+    var expression: String!
+    var result: Double!
+    var countOfLeftParentheses: Int = 0
+    var countOfRightParentheses: Int = 0
     
-    var innerOperation: Operation?
-    var operandOne: Double?
-    var operandTwo: Double?
-    var buffer: String = ""
-    
-    
-    func input(number: Int) {
-        buffer += "\(number)"
-        process()
-    }
-    
-    func input(operation: Operation) {
-        if operandOne == nil {
-            operandOne = Double(buffer)
-        } else if operandTwo == nil {
-            operandTwo = Double(buffer)
+    func input(expression: String) {
+        while countOfLeftParentheses != countOfRightParentheses {
+            tmp = tmp + " )"
+            countOfRightParentheses += 1
         }
-        buffer = ""
         
-        if operation == .equal {
-            var result: Double? = nil
-            
-            switch innerOperation! {
-            case .pls: result = (operandOne ?? 0.0) + (operandTwo ?? 0.0)
-            case .min: result = (operandOne ?? 0.0) - (operandTwo ?? 0.0)
-            case .mul: result = (operandOne ?? 0.0) * (operandTwo ?? 0.0)
-            case .div: result = (operandOne ?? 0.0) / (operandTwo ?? 0.0) 
-            default: break
-            }
-            
-            if let result = result {
-                output.output(value: "\(result)")
-                operandOne = nil
-                operandTwo = nil
-            }
-        } else {
-            innerOperation = operation
-        }
+        //self.history = equation
+        self.expression = expression + tmp
+        //process()
+
     }
     
-    func process() {
-        //....
-        output.output(value: buffer)
+    func procces(_ str: String) {
+            output.output(value: str)
     }
-    func backSpace() {
-    buffer = buffer.substring(to: buffer.index(before: buffer.endIndex))
-        process()
+    
+    func equal() {
+        tmp = ""
+        countOfLeftParentheses = 0
+        countOfRightParentheses = 0
+        //output.presentHistory(history: "")
+        result = CalculateResult()
+        if result != nil{
+        output.output(value: "\(result!)")
+        }
+        
     }
+    
+    func CalculateResult() -> Double {
+        let rpnStr = ReverseToPolandNotation(tokens: parseInfix(expression))
+        var stack : [String] = []
+        
+        for tok in rpnStr {
+            if Double(tok) != nil {
+                stack += [tok]
+            } else if tok == "sin" {
+                let operand = Double(stack.removeLast())
+                stack += [String(sin(operand!))]
+            } else {
+                let secondOperand = Double(stack.removeLast())
+                let firstOperand = Double(stack.removeLast())
+                switch tok {
+                case "+":
+                    stack += [String(firstOperand! + secondOperand!)]
+                case "-":
+                    stack += [String(firstOperand! - secondOperand!)]
+                case "÷":
+                    stack += [String(firstOperand! / secondOperand!)]
+                case "×":
+                    stack += [String(firstOperand! * secondOperand!)]
+                case "^":
+                    stack += [String(pow(firstOperand!,secondOperand!))]
+                default:
+                    break
+                }
+            }
+        }
+        
+        return Double(stack.removeLast())!
+    }
+    
+    func parseInfix(_ equationStr: String) -> [String] {
+        let tokens = equationStr.characters.split{ $0 == " " }.map(String.init)
+        return tokens
+    }
+    
+    func ReverseToPolandNotation(tokens: [String]) -> [String] {
+        var rpn : [String] = []
+        var stack : [String] = []
+        
+        for tok in tokens {
+            switch tok {
+            case "(":
+                stack += [tok]
+            case ")":
+                while !stack.isEmpty {
+                    let op = stack.removeLast()
+                    if op == "(" {
+                        break
+                    } else {
+                        rpn += [op]
+                    }
+                }
+            default:
+                if let operand1 = operation[tok] {
+                    for op in stack.reversed() {
+                        if let operand2 = operation[op] {
+                            if !(operand1.prec > operand2.prec || (operand1.prec == operand2.prec && operand1.rAssoc)) {
+                                rpn += [stack.removeLast()]
+                                continue
+                            }
+                        }
+                        break
+                    }
+                    stack += [tok]
+                } else {
+                    rpn += [tok]
+                }
+            }
+        }
+        return (rpn + stack.reversed())
+    }
+    
+    let operation = [
+        "^": (prec: 4, rAssoc: true),
+        "×": (prec: 3, rAssoc: false),
+        "÷": (prec: 3, rAssoc: false),
+        "+": (prec: 2, rAssoc: false),
+        "-": (prec: 2, rAssoc: false),
+        "sin": (prec: 3, rAssoc: true),
+        ]
+
 }
