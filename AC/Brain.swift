@@ -25,9 +25,7 @@ class Brain: Model {
             countOfRightParentheses += 1
         }
         
-        //self.history = equation
         self.expression = expression + tmp
-        //process()
 
     }
     
@@ -39,7 +37,6 @@ class Brain: Model {
         tmp = ""
         countOfLeftParentheses = 0
         countOfRightParentheses = 0
-        //output.presentHistory(history: "")
         result = CalculateResult()
         if result != nil{
         output.output(value: "\(result!)")

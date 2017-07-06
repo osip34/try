@@ -12,12 +12,14 @@ class IntputAdapter: InputProtocol {
     static let shared = IntputAdapter()
     var startedNum = true
     var buffer: String = "0"
+    var resultCollection: [String] = []
     let brain = Brain.shared
+    
     
     func input(value: Int) {
         if buffer == "" || buffer == "0" || startedNum {
             buffer = String(value)
-            startedNum = true
+            startedNum = false
         } else if buffer.characters.last == "." || buffer.characters.last! >= "0" && buffer.characters.last! <= "9" {
             buffer = buffer + "\(value)"
         } else {
@@ -52,7 +54,6 @@ class IntputAdapter: InputProtocol {
                 }
             }
         startedNum = false
-        //presentHistory
         brain.procces(buffer)
         
         }
@@ -60,11 +61,20 @@ class IntputAdapter: InputProtocol {
     
     func enterServiceKey(_ serviceKey: Int) {
         if serviceKey == 100 {
+            
             brain.input(expression: buffer)
             brain.equal()
+            
+            resultCollection.append(buffer + " = \(brain.result!)")
             buffer = "\(brain.result!)"
             startedNum = true
-        } //else {
+            
+            OutputAdapter.shared.reloadPicker()
+            
+        }
+        
+        
+            //else {
             //buffer = ""
            // brain.clear()
         }

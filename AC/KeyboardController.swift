@@ -38,7 +38,7 @@ class KeyboardController: UIViewController {
         }
         UIView.animate(withDuration: 0.5, animations: {
         sender.alpha = 0
-            sender.alpha = 1
+        sender.alpha = 1
         })
         
         

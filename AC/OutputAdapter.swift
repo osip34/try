@@ -15,6 +15,8 @@ class OutputAdapter: OutputProtocol {
     
     func output(value: String) {
         display?.present(value: value)
-        
+    }
+    func reloadPicker() {
+        display?.historyPicker.reloadAllComponents()
     }
     }

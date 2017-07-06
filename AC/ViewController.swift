@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     var display: DisplayController!
     var keyboard: KeyboardController!
     
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -34,12 +35,15 @@ class ViewController: UIViewController {
     
     func onNumericTap(num: Int) {
         IntputAdapter.shared.input(value: num)
+        
        
 }
     func onUtilityTap(symbol: String) {
         IntputAdapter.shared.input(utility: symbol)
     }
 
-
-
+    
+    
+    
 }
+
