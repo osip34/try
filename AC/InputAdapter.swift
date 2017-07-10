@@ -11,6 +11,7 @@ import Foundation
 class IntputAdapter: InputProtocol {
     static let shared = IntputAdapter()
     var startedNum = true
+    var operationClicked = false
     var buffer: String = "0"
     var resultCollection: [String] = []
     let brain = Brain.shared
@@ -29,7 +30,7 @@ class IntputAdapter: InputProtocol {
     }
     
     func input(utility: String) {
-        
+        operationClicked = true
         
         if characterOperationBinary(str: utility) {
             if characterOperationBinary(str: buffer) {
@@ -65,11 +66,13 @@ class IntputAdapter: InputProtocol {
             brain.input(expression: buffer)
             brain.equal()
             
-            resultCollection.append(buffer + " = \(brain.result!)")
+            resultCollection.insert((buffer + " = \(brain.result!)"), at: 0)
             buffer = "\(brain.result!)"
             startedNum = true
             
             OutputAdapter.shared.reloadPicker()
+            
+            operationClicked = false
             
         }
         
@@ -78,6 +81,20 @@ class IntputAdapter: InputProtocol {
             //buffer = ""
            // brain.clear()
         }
+    
+    func checkBufferEnding() -> Bool{
+        if buffer.characters.last! >= "0" && buffer.characters.last! <= "9" {
+        return true
+        } else {
+            return false
+        }
+    }
+    
+    func removeSub(spIndex: String.Index) {
+    let ending = buffer.endIndex
+        buffer.removeSubrange(spIndex...ending)
+    }
+    
 }
 func characterOperationBinary (str: String) ->Bool {
     switch str.characters.last! {

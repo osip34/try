@@ -33,7 +33,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xlh-Vp-ZLd">
-                                <rect key="frame" x="0.0" y="57" width="375" height="129"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="186"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <segue destination="mYA-yY-1y8" kind="embed" identifier="DisplayControllerSegue" id="ppy-rC-BK1"/>
@@ -65,17 +65,17 @@
                         <viewControllerLayoutGuide type="bottom" id="BbL-0q-LRl"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9Zg-jf-e7s">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="129"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="186"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tileable-wood-texture.png" translatesAutoresizingMaskIntoConstraints="NO" id="IxN-BI-SWy">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="129"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="14315211077656.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="IxN-BI-SWy">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="186"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVJ-gK-8b9">
-                                <rect key="frame" x="8" y="105" width="359" height="24"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.80070043103448274" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="8" y="161" width="359" height="25"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="MTI-9P-SVQ"/>
+                                    <constraint firstAttribute="height" constant="25" id="MTI-9P-SVQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -369,6 +369,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="14315211077656.jpg" width="640" height="360"/>
         <image name="tileable-wood-texture.png" width="730" height="500"/>
     </resources>
 </document>
