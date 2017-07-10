@@ -19,18 +19,19 @@ class Brain: Model {
     var countOfLeftParentheses: Int = 0
     var countOfRightParentheses: Int = 0
     
-    func input(expression: String) {
+    func EnterEquation(equation: String) {
         while countOfLeftParentheses != countOfRightParentheses {
             tmp = tmp + " )"
             countOfRightParentheses += 1
         }
         
-        self.expression = expression + tmp
+        self.expression = equation + tmp
 
     }
     
     func procces(_ str: String) {
-            output.output(value: str)
+        output.presentResult(result: str)
+        //output.output(value: str)
     }
     
     func equal() {
@@ -39,7 +40,8 @@ class Brain: Model {
         countOfRightParentheses = 0
         result = CalculateResult()
         if result != nil{
-        output.output(value: "\(result!)")
+        output.presentResult(result: "\(result!)")
+        //output.output(value: "\(result!)")
         }
         
     }

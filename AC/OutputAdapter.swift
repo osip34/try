@@ -15,8 +15,8 @@ class OutputAdapter: OutputProtocol {
     var resultDisplay: ((String)->())?
     var reloadPickerDisplay: (()->())?
     
-    func output(value: String) {
-        resultDisplay?(value)
+    func presentResult(result: String) {
+        resultDisplay?(result)
         //display?.present(value: value)
     }
     func reloadPicker() {

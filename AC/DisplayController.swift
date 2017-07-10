@@ -66,9 +66,6 @@ class DisplayController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         let subStrResult = input.resultCollection[row].substring(from: indexOfResult)
         
         if input.operationClicked {
-            //іф ласт чарактер 0юю9  ремов нумбер з спейс
-            //let ch = "\(input.buffer.characters.last)"
-            //if ["0","1","2","3","4","5","6","7","8","9"].contains(ch)
             
             if input.checkBufferEnding()
             {
@@ -76,9 +73,8 @@ class DisplayController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
                 
                 let ending = input.buffer.endIndex
                 let beforEnd = input.buffer.index(before: ending)
-                let afterSp = input.buffer.index(after: lastSpaceIndex!)
                 if input.buffer != "" {
-                    input.buffer.removeSubrange(afterSp...beforEnd)}
+                    input.buffer.removeSubrange(lastSpaceIndex!...beforEnd)}
             
             }
         input.buffer += " \(subStrResult)"
@@ -87,13 +83,15 @@ class DisplayController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         input.buffer = subStrResult
             input.startedNum = true
         }
-        output.output(value: IntputAdapter.shared.buffer)
+        output.presentResult(result: input.buffer)
+        //output.output(value: IntputAdapter.shared.buffer)
         
     
     }
     
     func reloadPicker() {
     historyPicker.reloadAllComponents()
+    historyPicker.selectRow(0, inComponent: 0, animated: true)
     }
     
 }

@@ -17,53 +17,62 @@ class IntputAdapter: InputProtocol {
     let brain = Brain.shared
     
     
-    func input(value: Int) {
+    func enterNum(_ number: Int) {
         if buffer == "" || buffer == "0" || startedNum {
-            buffer = String(value)
+            buffer = String(number)
             startedNum = false
         } else if buffer.characters.last == "." || buffer.characters.last! >= "0" && buffer.characters.last! <= "9" {
-            buffer = buffer + "\(value)"
+            buffer = buffer + "\(number)"
         } else {
-            buffer = buffer + " \(value)"
+            buffer = buffer + " \(number)"
         }
       brain.procces(buffer)
     }
     
-    func input(utility: String) {
+    func enterUtility(_ symbol: Operation) {
         operationClicked = true
         
-        if characterOperationBinary(str: utility) {
-            if characterOperationBinary(str: buffer) {
+        if OperationBinary(_symbol: symbol) {
+            if characterOperationBinary(_symbol: buffer) {
         buffer.characters.removeLast()
-                buffer += utility
+                switch symbol {
+                case .pls: buffer += "+"
+                case .min: buffer += "-"
+                case .mul: buffer += "×"
+                case .div: buffer += "÷"
+                default: break
+                }
             } else if buffer.characters.last! >= "0" && buffer.characters.last! <= "9" {
-                buffer += " " + utility
+                switch symbol {
+                case .pls: buffer += " +"
+                case .min: buffer += " -"
+                case .mul: buffer += " ×"
+                case .div: buffer += " ÷"
+                default: break
+                }
             }
+            startedNum = false
         }
-        if utility == "(" {
-            if characterOperationBinary(str: buffer) {
-            buffer += " " + utility
+        if symbol == .leftBracket {
+            if characterOperationBinary(_symbol: buffer) {
+            buffer += " ("
                 brain.countOfLeftParentheses += 1
             } else if buffer.characters.last! >= "0" && buffer.characters.last! <= "9" {
             buffer += " × ("
                 brain.countOfLeftParentheses += 1
             }
         }
-            if utility == ")" {
-                if !characterOperationBinary(str: buffer) && brain.countOfLeftParentheses > brain.countOfRightParentheses {
-                buffer += " " + utility
+            if symbol == .rightBracket {
+                if !characterOperationBinary(_symbol: buffer) && brain.countOfLeftParentheses > brain.countOfRightParentheses {
+                buffer += " )"
                 }
             }
-        startedNum = false
-        brain.procces(buffer)
         
-        }
-    
-    
-    func enterServiceKey(_ serviceKey: Int) {
-        if serviceKey == 100 {
+        if symbol == .equal {
+            //startedNum = false
             
-            brain.input(expression: buffer)
+            
+            brain.EnterEquation(equation: buffer)
             brain.equal()
             
             resultCollection.insert((buffer + " = \(brain.result!)"), at: 0)
@@ -73,14 +82,42 @@ class IntputAdapter: InputProtocol {
             OutputAdapter.shared.reloadPicker()
             
             operationClicked = false
-            
         }
         
+        if symbol == .clear {
+        buffer = "0.0"
+            resultCollection = []
+            OutputAdapter.shared.reloadPicker()
+            brain.procces(buffer)
+            startedNum = true
         
-            //else {
-            //buffer = ""
-           // brain.clear()
         }
+        //startedNum = false
+        brain.procces(buffer)
+        }
+    
+    
+//    func enterServiceKey(_ serviceKey: Int) {
+//        if serviceKey == 100 {
+//            
+//            brain.EnterEquation(equation: buffer)
+//            brain.equal()
+//            
+//            resultCollection.insert((buffer + " = \(brain.result!)"), at: 0)
+//            buffer = "\(brain.result!)"
+//            startedNum = true
+//            
+//            OutputAdapter.shared.reloadPicker()
+//            
+//            operationClicked = false
+//            
+//        }
+//        
+//        
+//            //else {
+//            //buffer = ""
+//           // brain.clear()
+//        }
     
     func checkBufferEnding() -> Bool{
         if buffer.characters.last! >= "0" && buffer.characters.last! <= "9" {
@@ -90,14 +127,21 @@ class IntputAdapter: InputProtocol {
         }
     }
     
-    func removeSub(spIndex: String.Index) {
-    let ending = buffer.endIndex
-        buffer.removeSubrange(spIndex...ending)
-    }
     
 }
-func characterOperationBinary (str: String) ->Bool {
-    switch str.characters.last! {
+func OperationBinary (_symbol: Operation) ->Bool {
+    switch _symbol {
+    case .pls: fallthrough
+    case .min: fallthrough
+    case .mul: fallthrough
+    case .div: return true
+    default: return false
+        
+    }
+    }
+
+func characterOperationBinary (_symbol: String) ->Bool {
+    switch _symbol.characters.last! {
     case "+": fallthrough
     case "-": fallthrough
     case "×": fallthrough
@@ -105,4 +149,4 @@ func characterOperationBinary (str: String) ->Bool {
     default: return false
         
     }
-    }
+}
