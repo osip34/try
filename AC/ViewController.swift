@@ -14,7 +14,6 @@ class ViewController: UIViewController {
     var keyboard: KeyboardController!
     
     
-    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "DisplayControllerSegue", let controller = segue.destination as? DisplayController {
@@ -34,12 +33,10 @@ class ViewController: UIViewController {
     }
     
     func onNumericTap(num: Int) {
-        //IntputAdapter.shared.input(value: num)
         IntputAdapter.shared.enterNum(num)
        
 }
     func onUtilityTap(symbol: Int) {
-        //IntputAdapter.shared.input(utility: symbol)
         let op = Operation(rawValue: symbol)
         IntputAdapter.shared.enterUtility(op!)
     }

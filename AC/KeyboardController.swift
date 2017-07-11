@@ -31,19 +31,6 @@ class KeyboardController: UIViewController {
     }
 
     
-//    @IBAction func onEqualTap(_ sender: UIButton) {
-//        if IntputAdapter.shared.buffer != "" || !IntputAdapter.shared.startedNum
-//        {
-//            IntputAdapter.shared.enterServiceKey(sender.tag)
-//        }
-//        UIView.animate(withDuration: 0.5, animations: {
-//        sender.alpha = 0
-//        sender.alpha = 1
-//        })
-//        
-//        
-//    }
-    
     @IBAction func onBacspaceTap(_ sender: UIButton) {
         
     }

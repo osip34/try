@@ -12,6 +12,7 @@ class IntputAdapter: InputProtocol {
     static let shared = IntputAdapter()
     var startedNum = true
     var operationClicked = false
+    var pickerIsScroling = false
     var buffer: String = "0"
     var resultCollection: [String] = []
     let brain = Brain.shared
@@ -21,7 +22,12 @@ class IntputAdapter: InputProtocol {
         if buffer == "" || buffer == "0" || startedNum {
             buffer = String(number)
             startedNum = false
-        } else if buffer.characters.last == "." || buffer.characters.last! >= "0" && buffer.characters.last! <= "9" {
+        } else if buffer.characters.last == "." || lastCharacterIsNum(buffer) {
+            if pickerIsScroling {
+                BufferRemoveSubRange()
+            buffer+=" "
+                pickerIsScroling = false
+            }
             buffer = buffer + "\(number)"
         } else {
             buffer = buffer + " \(number)"
@@ -32,8 +38,8 @@ class IntputAdapter: InputProtocol {
     func enterUtility(_ symbol: Operation) {
         operationClicked = true
         
-        if OperationBinary(_symbol: symbol) {
-            if characterOperationBinary(_symbol: buffer) {
+        if OperationBinary(symbol) {
+            if characterOperationBinary(buffer) {
         buffer.characters.removeLast()
                 switch symbol {
                 case .pls: buffer += "+"
@@ -42,7 +48,7 @@ class IntputAdapter: InputProtocol {
                 case .div: buffer += "÷"
                 default: break
                 }
-            } else if buffer.characters.last! >= "0" && buffer.characters.last! <= "9" {
+            } else if lastCharacterIsNum(buffer) || buffer.characters.last == ")" {
                 switch symbol {
                 case .pls: buffer += " +"
                 case .min: buffer += " -"
@@ -51,25 +57,29 @@ class IntputAdapter: InputProtocol {
                 default: break
                 }
             }
+            //else rimuvsub switch symbol buf+=
             startedNum = false
         }
         if symbol == .leftBracket {
-            if characterOperationBinary(_symbol: buffer) {
-            buffer += " ("
-                brain.countOfLeftParentheses += 1
-            } else if buffer.characters.last! >= "0" && buffer.characters.last! <= "9" {
+            //if characterOperationBinary(buffer) {
+            //buffer += " ("
+                //brain.countOfLeftParentheses += 1
+            //}
+            if lastCharacterIsNum(buffer) {
             buffer += " × ("
-                brain.countOfLeftParentheses += 1
+            } else {
+            buffer += " ("
             }
+            brain.countOfLeftParentheses += 1
         }
             if symbol == .rightBracket {
-                if !characterOperationBinary(_symbol: buffer) && brain.countOfLeftParentheses > brain.countOfRightParentheses {
+                if !characterOperationBinary(buffer) && brain.countOfLeftParentheses > brain.countOfRightParentheses {
                 buffer += " )"
+                    brain.countOfRightParentheses += 1
                 }
             }
         
         if symbol == .equal {
-            //startedNum = false
             
             
             brain.EnterEquation(equation: buffer)
@@ -92,32 +102,43 @@ class IntputAdapter: InputProtocol {
             startedNum = true
         
         }
-        //startedNum = false
+        
+        if OperationUnary(symbol) {
+              if lastCharacterIsNum(buffer) && !startedNum || buffer.characters.last! == ")" {
+                brain.countOfLeftParentheses += 1
+                switch symbol {
+                case .sin: buffer += " × sin ("
+                case .cos: buffer += " × cos ("
+                case .sqrt: buffer += " × sqrt ("
+                case .log: buffer += " × ln ("
+                default: break
+                }
+            } else if buffer.characters.last! == "(" || characterOperationBinary(buffer) {
+                brain.countOfLeftParentheses += 1
+                switch symbol {
+                case .sin: buffer += " sin ("
+                case .cos: buffer += " cos ("
+                case .sqrt: buffer += " sqrt ("
+                case .log: buffer += " ln ("
+                default: break
+                }
+              } else if startedNum {
+                brain.countOfLeftParentheses += 1
+                startedNum = false
+                switch symbol {
+                case .sin: buffer = "sin ("
+                case .cos: buffer = "cos ("
+                case .sqrt: buffer = "sqrt ("
+                case .log: buffer = "ln ("
+                default: break
+                }
+            }
+        }
+        
         brain.procces(buffer)
         }
     
-    
-//    func enterServiceKey(_ serviceKey: Int) {
-//        if serviceKey == 100 {
-//            
-//            brain.EnterEquation(equation: buffer)
-//            brain.equal()
-//            
-//            resultCollection.insert((buffer + " = \(brain.result!)"), at: 0)
-//            buffer = "\(brain.result!)"
-//            startedNum = true
-//            
-//            OutputAdapter.shared.reloadPicker()
-//            
-//            operationClicked = false
-//            
-//        }
-//        
-//        
-//            //else {
-//            //buffer = ""
-//           // brain.clear()
-//        }
+
     
     func checkBufferEnding() -> Bool{
         if buffer.characters.last! >= "0" && buffer.characters.last! <= "9" {
@@ -126,11 +147,17 @@ class IntputAdapter: InputProtocol {
             return false
         }
     }
+    func BufferRemoveSubRange () {
+        let lastSpaceIndex = buffer.range(of: " ", options: String.CompareOptions.backwards, range: nil, locale: nil)?.lowerBound 
+        let ending = buffer.index(before: buffer.endIndex)
+        if buffer != "" {
+            buffer.removeSubrange(lastSpaceIndex!...ending)}
+    }
     
     
 }
-func OperationBinary (_symbol: Operation) ->Bool {
-    switch _symbol {
+func OperationBinary (_ symbol: Operation) ->Bool {
+    switch symbol {
     case .pls: fallthrough
     case .min: fallthrough
     case .mul: fallthrough
@@ -140,8 +167,18 @@ func OperationBinary (_symbol: Operation) ->Bool {
     }
     }
 
-func characterOperationBinary (_symbol: String) ->Bool {
-    switch _symbol.characters.last! {
+func OperationUnary (_ symbol: Operation) ->Bool {
+    switch symbol {
+    case .sin: fallthrough
+    case .cos: fallthrough
+    case .sqrt: fallthrough
+    case .log: return true
+    default: return false
+        
+    }
+}
+func characterOperationBinary (_ symbol: String) ->Bool {
+    switch symbol.characters.last! {
     case "+": fallthrough
     case "-": fallthrough
     case "×": fallthrough
@@ -150,3 +187,14 @@ func characterOperationBinary (_symbol: String) ->Bool {
         
     }
 }
+func lastCharacterIsNum (_ str: String) -> (Bool) {
+    if str.characters.last! >= "0" && str.characters.last! <= "9" {
+    return true
+    } else {return false}
+}
+
+//func lastCharacterIsBracket (_ str: String) -> (Bool) {
+//    if str.characters.last! >= "0" && str.characters.last! <= "9" {
+//        return true
+//    } else {return false}
+//}

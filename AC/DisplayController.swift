@@ -19,16 +19,17 @@ class DisplayController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     let brain = Brain.shared
     let input = IntputAdapter.shared
     
-    func present(value: String) {
-        displayLabel.text = value
+    
+    func presentResult(_ result: String) {
+        //displayLabel.shadowColor = UIColor.white
+        displayLabel.text = result
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //output.display = self
-        output.resultDisplay = {[weak self] result in self?.present(value: result)}
+        output.resultDisplay = {[weak self] result in self?.presentResult(result)}
         output.reloadPickerDisplay = {[weak self] in self?.reloadPicker()}
     }
     
@@ -61,6 +62,8 @@ class DisplayController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        input.pickerIsScroling = true
+        
         let indexOfEqual = input.resultCollection[row].characters.index(of: "=")
         let indexOfResult = input.resultCollection[row].index(indexOfEqual!, offsetBy: 2)
         let subStrResult = input.resultCollection[row].substring(from: indexOfResult)
@@ -69,12 +72,7 @@ class DisplayController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             
             if input.checkBufferEnding()
             {
-                let lastSpaceIndex = input.buffer.range(of: " ", options: String.CompareOptions.backwards, range: nil, locale: nil)?.lowerBound
-                
-                let ending = input.buffer.endIndex
-                let beforEnd = input.buffer.index(before: ending)
-                if input.buffer != "" {
-                    input.buffer.removeSubrange(lastSpaceIndex!...beforEnd)}
+                input.BufferRemoveSubRange()
             
             }
         input.buffer += " \(subStrResult)"
@@ -84,7 +82,6 @@ class DisplayController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             input.startedNum = true
         }
         output.presentResult(result: input.buffer)
-        //output.output(value: IntputAdapter.shared.buffer)
         
     
     }

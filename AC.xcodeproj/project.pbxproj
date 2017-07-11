@@ -21,6 +21,10 @@
 		B25690491F03B845003CB632 /* Brain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25690481F03B845003CB632 /* Brain.swift */; };
 		B256904D1F03B938003CB632 /* DisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B256904C1F03B938003CB632 /* DisplayController.swift */; };
 		B256904F1F03B9A0003CB632 /* KeyboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B256904E1F03B9A0003CB632 /* KeyboardController.swift */; };
+		B286BCF71F14D3B2004AD540 /* sport-shoes.png in Resources */ = {isa = PBXBuildFile; fileRef = B286BCF61F14D3B2004AD540 /* sport-shoes.png */; };
+		B286BCF91F14D3CD004AD540 /* wolf-cartoon.png in Resources */ = {isa = PBXBuildFile; fileRef = B286BCF81F14D3CD004AD540 /* wolf-cartoon.png */; };
+		B286BCFB1F14D3DC004AD540 /* cemetery.png in Resources */ = {isa = PBXBuildFile; fileRef = B286BCFA1F14D3DC004AD540 /* cemetery.png */; };
+		B286BD001F14DEAE004AD540 /* gendalf.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B286BCFF1F14DEAE004AD540 /* gendalf.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +56,10 @@
 		B25690481F03B845003CB632 /* Brain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brain.swift; sourceTree = "<group>"; };
 		B256904C1F03B938003CB632 /* DisplayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayController.swift; sourceTree = "<group>"; };
 		B256904E1F03B9A0003CB632 /* KeyboardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardController.swift; sourceTree = "<group>"; };
+		B286BCF61F14D3B2004AD540 /* sport-shoes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sport-shoes.png"; sourceTree = "<group>"; };
+		B286BCF81F14D3CD004AD540 /* wolf-cartoon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wolf-cartoon.png"; sourceTree = "<group>"; };
+		B286BCFA1F14D3DC004AD540 /* cemetery.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cemetery.png; sourceTree = "<group>"; };
+		B286BCFF1F14DEAE004AD540 /* gendalf.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gendalf.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +112,11 @@
 				B25690221F03B54E003CB632 /* AppDelegate.swift */,
 				B25690291F03B54E003CB632 /* Assets.xcassets */,
 				B256902B1F03B54E003CB632 /* LaunchScreen.storyboard */,
+				B286BCFF1F14DEAE004AD540 /* gendalf.jpg */,
 				B2393F0B1F136C8A00FADC24 /* 14315211077656.jpg */,
+				B286BCFA1F14D3DC004AD540 /* cemetery.png */,
+				B286BCF81F14D3CD004AD540 /* wolf-cartoon.png */,
+				B286BCF61F14D3B2004AD540 /* sport-shoes.png */,
 				B251CB3C1F0B896F00DECEAD /* tileable-wood-texture.png */,
 				B256902E1F03B54E003CB632 /* Info.plist */,
 			);
@@ -208,6 +220,10 @@
 				B251CB3D1F0B896F00DECEAD /* tileable-wood-texture.png in Resources */,
 				B25690281F03B54E003CB632 /* Main.storyboard in Resources */,
 				B2393F0C1F136C8A00FADC24 /* 14315211077656.jpg in Resources */,
+				B286BCFB1F14D3DC004AD540 /* cemetery.png in Resources */,
+				B286BCF71F14D3B2004AD540 /* sport-shoes.png in Resources */,
+				B286BCF91F14D3CD004AD540 /* wolf-cartoon.png in Resources */,
+				B286BD001F14DEAE004AD540 /* gendalf.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

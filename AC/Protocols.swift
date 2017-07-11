@@ -8,26 +8,6 @@
 
 import Foundation
 
-//enum Operation {
-//    case pls
-//    case min
-//    case mul
-//    case div
-//    case equal
-//}
-//
-//protocol InputProtocol {
-//    func input(value: Int)
-//    func input(utility: String)
-//}
-//
-//protocol OutputProtocol {
-//    func output(value: String)
-//}
-//
-//protocol Model {
-//    func input(expression: String)
-//}
 protocol InputProtocol {
     func enterNum(_ number: Int)
     func enterUtility(_ symbol: Operation)

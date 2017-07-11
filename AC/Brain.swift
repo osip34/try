@@ -15,7 +15,7 @@ class Brain: Model {
     
     var tmp = ""
     var expression: String!
-    var result: Double!
+    var result: String!
     var countOfLeftParentheses: Int = 0
     var countOfRightParentheses: Int = 0
     
@@ -31,17 +31,15 @@ class Brain: Model {
     
     func procces(_ str: String) {
         output.presentResult(result: str)
-        //output.output(value: str)
     }
     
     func equal() {
         tmp = ""
         countOfLeftParentheses = 0
         countOfRightParentheses = 0
-        result = CalculateResult()
+        result = String(format: "%g", CalculateResult())
         if result != nil{
-        output.presentResult(result: "\(result!)")
-        //output.output(value: "\(result!)")
+        output.presentResult(result: result)
         }
         
     }
@@ -53,9 +51,15 @@ class Brain: Model {
         for tok in rpnStr {
             if Double(tok) != nil {
                 stack += [tok]
-            } else if tok == "sin" {
+            } else if tok == "sin" || tok == "cos" || tok == "sqrt" || tok == "ln" {
                 let operand = Double(stack.removeLast())
-                stack += [String(sin(operand!))]
+                switch tok {
+                case "sin": stack += [String(sin(operand!))]
+                case "cos": stack += [String(cos(operand!))]
+                case "sqrt": stack += [String(sqrt(operand!))]
+                case "ln": stack += [String(log(operand!))]
+                default: break
+                }
             } else {
                 let secondOperand = Double(stack.removeLast())
                 let firstOperand = Double(stack.removeLast())
@@ -123,11 +127,14 @@ class Brain: Model {
     
     let operation = [
         "^": (prec: 4, rAssoc: true),
+        "√": (prec: 5, rAssoc: true),
         "×": (prec: 3, rAssoc: false),
         "÷": (prec: 3, rAssoc: false),
         "+": (prec: 2, rAssoc: false),
         "-": (prec: 2, rAssoc: false),
-        "sin": (prec: 3, rAssoc: true),
+        "sin": (prec: 5, rAssoc: true),
+        "cos": (prec: 5, rAssoc: true),
+        "ln": (prec: 4, rAssoc: true),
         ]
 
 }

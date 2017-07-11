@@ -11,16 +11,13 @@ import Foundation
 class OutputAdapter: OutputProtocol {
     static let shared = OutputAdapter()
     
-    //var display: DisplayController?
     var resultDisplay: ((String)->())?
     var reloadPickerDisplay: (()->())?
     
     func presentResult(result: String) {
         resultDisplay?(result)
-        //display?.present(value: value)
     }
     func reloadPicker() {
-        //display?.historyPicker.reloadAllComponents()
         reloadPickerDisplay?()
     }
     }
